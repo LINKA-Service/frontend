@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   Heart,
@@ -14,6 +15,7 @@ import Image from "next/image";
 import useAuthStore from "../store/useAuthStore";
 
 export default function MainPage() {
+  const router = useRouter();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const { user, logout } = useAuthStore();
 
@@ -54,10 +56,16 @@ export default function MainPage() {
             ) : (
               <>
                 {/* 로그인 전 */}
-                <button className="px-5 py-2 text-[#fafafa]/90 hover:text-[#fafafa] transition-colors font-medium">
+                <button
+                  onClick={() => router.push("/login")}
+                  className="px-5 py-2 text-[#fafafa]/90 hover:text-[#fafafa] transition-colors font-medium"
+                >
                   로그인
                 </button>
-                <button className="px-6 py-2.5 bg-[#fafafa] text-teal-900 rounded-full font-semibold hover:bg-teal-50 transition-all shadow-lg hover:shadow-xl hover:scale-105">
+                <button
+                  onClick={() => router.push("/register")}
+                  className="px-6 py-2.5 bg-[#fafafa] text-teal-900 rounded-full font-semibold hover:shadow-xl hover:scale-105"
+                >
                   회원가입
                 </button>
               </>
