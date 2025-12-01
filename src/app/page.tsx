@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   ArrowRight,
@@ -17,7 +17,14 @@ import useAuthStore from "../store/useAuthStore";
 export default function MainPage() {
   const router = useRouter();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const { user, logout } = useAuthStore();
+  const { user, logout, fetchUser, accessToken } = useAuthStore();
+
+  // 컴포넌트 마운트 시 사용자 정보 가져옴
+  useEffect(() => {
+    if (accessToken && !user) {
+      fetchUser();
+    }
+  }, [accessToken, user, fetchUser]);
 
   return (
     <div
