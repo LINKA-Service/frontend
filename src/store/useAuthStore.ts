@@ -19,10 +19,13 @@ const useAuthStore = create<AuthState>((set, get) => ({
       : null,
 
   setAccessToken: (token) => {
+    console.log("=== setAccessToken ===");
+    console.log("token:", token ? token.substring(0, 20) + "..." : "null");
+
     if (token) {
       localStorage.setItem("access_token", token);
       set({ accessToken: token });
-      // 토큰 설정 후 사용자 정보 가져오기
+      console.log("Calling fetchUser...");
       get().fetchUser();
     } else {
       localStorage.removeItem("access_token");
@@ -32,6 +35,8 @@ const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   setUser: (user) => {
+    console.log("=== setUser ===");
+    console.log("user:", user);
     set({ user });
     if (user) {
       localStorage.setItem("user", JSON.stringify(user));
@@ -42,9 +47,16 @@ const useAuthStore = create<AuthState>((set, get) => ({
 
   fetchUser: async () => {
     const token = get().accessToken;
-    if (!token) return;
+    console.log("=== fetchUser (store) ===");
+    console.log("token exists:", !!token);
+
+    if (!token) {
+      console.log("No token, skipping fetch");
+      return;
+    }
 
     try {
+      console.log("Fetching /api/fetchUser...");
       const response = await fetch("/api/fetchUser", {
         method: "GET",
         headers: {
@@ -52,20 +64,27 @@ const useAuthStore = create<AuthState>((set, get) => ({
         },
       });
 
+      console.log("Response status:", response.status);
+      const responseText = await response.text();
+      console.log("Response text:", responseText);
+
       if (!response.ok) {
-        throw new Error("Failed to fetch user");
+        console.error("Response not ok:", response.status);
+        throw new Error(`Failed to fetch user: ${response.status}`);
       }
 
-      const userData = await response.json();
+      const userData = JSON.parse(responseText);
+      console.log("User data:", userData);
       get().setUser(userData);
     } catch (error) {
-      console.error("Error fetching user:", error);
-      // 토큰이 유효하지 않으면 로그아웃
+      console.error("=== fetchUser ERROR (store) ===");
+      console.error("Error:", error);
       get().logout();
     }
   },
 
   logout: () => {
+    console.log("=== logout ===");
     localStorage.removeItem("access_token");
     localStorage.removeItem("user");
     set({ accessToken: null, user: null });
