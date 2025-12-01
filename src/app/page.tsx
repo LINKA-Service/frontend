@@ -11,13 +11,12 @@ import {
   ChevronRight,
   ChevronDown,
 } from "lucide-react";
-import Image from "next/image";
 import useAuthStore from "../store/useAuthStore";
 
 export default function MainPage() {
   const router = useRouter();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const { user, logout, fetchUser, accessToken } = useAuthStore();
+  const { user, fetchUser, accessToken } = useAuthStore();
 
   // 컴포넌트 마운트 시 사용자 정보 가져옴
   useEffect(() => {
@@ -33,54 +32,6 @@ export default function MainPage() {
         background: "linear-gradient(180deg, #00353D 0%, #00252A 100%)",
       }}
     >
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md border-b border-[#fafafa]/10">
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/logo/logo-w.svg"
-              alt="LINKA Logo"
-              width={120}
-              height={120}
-              className="shadow-lg"
-            />
-          </div>
-
-          <div className="flex items-center gap-3">
-            {user ? (
-              <>
-                {/* 로그인 후 사용자명 */}
-                <button className="px-5 py-2 text-[#fafafa]/90 hover:text-[#fafafa] transition-colors font-medium">
-                  {user.display_name} 님
-                </button>
-                {/* 로그아웃 버튼 */}
-                <button
-                  onClick={logout}
-                  className="px-6 py-2.5 bg-[#fafafa] text-teal-900 rounded-full font-semibold hover:bg-teal-50 transition-all shadow-lg hover:shadow-xl hover:scale-105"
-                >
-                  로그아웃
-                </button>
-              </>
-            ) : (
-              <>
-                {/* 로그인 전 */}
-                <button
-                  onClick={() => router.push("/login")}
-                  className="px-5 py-2 text-[#fafafa]/90 hover:text-[#fafafa] transition-colors font-medium"
-                >
-                  로그인
-                </button>
-                <button
-                  onClick={() => router.push("/register")}
-                  className="px-6 py-2.5 bg-[#fafafa] text-teal-900 rounded-full font-semibold hover:shadow-xl hover:scale-105"
-                >
-                  회원가입
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-        <div className="h-px bg-[#fafafa]/20"></div>
-      </header>
       <div className="h-25"></div>
 
       <section className="pt-32 pb-24 px-6">
@@ -461,94 +412,6 @@ export default function MainPage() {
           </p>
         </div>
       </section>
-
-      <footer className="border-t border-[#fafafa]/10 bg-black/20 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 py-16">
-          <div className="flex justify-center mb-12">
-            <Image
-              src="/logo/logo-w.svg"
-              alt="LINKA Logo"
-              width={150}
-              height={150}
-            />
-          </div>
-
-          <p className="text-center text-[#fafafa]/80 text-lg mb-16 max-w-3xl mx-auto">
-            당신이 피해를 혼자 감당하지 않도록, AI가 당신과 공동대응을 함께할
-            <br />
-            피해자를 찾아서 매칭하고 필요한 대응을 알려드립니다.
-          </p>
-
-          <div className="flex justify-center mb-16">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-20 max-w-xl">
-              <div className="text-left">
-                <h4 className="text-[#fafafa] font-bold mb-3">서비스</h4>
-                <div className="space-y-2 text-[#fafafa]/70 text-sm">
-                  <a
-                    href="#"
-                    className="block hover:text-[#fafafa] transition-colors"
-                  >
-                    공지사항
-                  </a>
-                  <a
-                    href="#"
-                    className="block hover:text-[#fafafa] transition-colors"
-                  >
-                    자주 묻는 질문
-                  </a>
-                  <a
-                    href="#"
-                    className="block hover:text-[#fafafa] transition-colors"
-                  >
-                    피해 사례 등록하기
-                  </a>
-                </div>
-              </div>
-
-              <div className="text-left">
-                <h4 className="text-[#fafafa] font-bold mb-3">정책</h4>
-                <div className="space-y-2 text-[#fafafa]/70 text-sm">
-                  <a
-                    href="#"
-                    className="block hover:text-[#fafafa] transition-colors"
-                  >
-                    서비스 이용약관
-                  </a>
-                  <a
-                    href="#"
-                    className="block hover:text-[#fafafa] transition-colors"
-                  >
-                    개인정보 처리방침
-                  </a>
-                </div>
-              </div>
-
-              <div className="text-left">
-                <h4 className="text-[#fafafa] font-bold mb-3">문의</h4>
-                <div className="space-y-2 text-[#fafafa]/70 text-sm">
-                  <a
-                    href="#"
-                    className="block hover:text-[#fafafa] transition-colors"
-                  >
-                    팀 &apos;대 선 린&apos; 소개
-                  </a>
-                  <a
-                    href="#"
-                    className="block hover:text-[#fafafa] transition-colors"
-                  >
-                    문의하기
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="pt-8 border-t border-[#fafafa]/10 text-center text-[#fafafa]/60 text-sm">
-            © {new Date().getFullYear()} LINKA. All rights reserved. Connecting
-            victims with 🫶, empowering justice.
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
