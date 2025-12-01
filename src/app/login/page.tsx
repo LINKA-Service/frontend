@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import useAuthStore from "../../store/useAuthStore";
-import Link from "next/link";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -27,14 +26,16 @@ export default function LoginPage() {
       formBody.append("password", formData.password);
       formBody.append("grant_type", "password");
 
-      const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
-      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+      const response = await fetch(
+        "http://linka-backend.dokploy.byeolki.me/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: formBody.toString(),
         },
-        body: formBody.toString(),
-      });
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -78,14 +79,12 @@ export default function LoginPage() {
         <div className="bg-[#FAFAF0] rounded-3xl shadow-2xl p-8 flex flex-col items-center">
           <div className="flex flex-col items-center mb-8">
             <div className="flex items-center gap-3 mb-4">
-              <Link href="/">
-                <Image
-                  src="/logo/logo-g.svg"
-                  alt="LINKA Logo"
-                  width={180}
-                  height={10}
-                />
-              </Link>
+              <Image
+                src="/logo/logo-g.svg"
+                alt="LINKA Logo"
+                width={180}
+                height={10}
+              />
             </div>
             <h1 className="text-2xl font-bold text-[#00353D]">로그인</h1>
           </div>
@@ -154,7 +153,7 @@ export default function LoginPage() {
               비밀번호 찾기
             </button>
             <button
-              onClick={() => router.push("/signup")}
+              onClick={() => router.push("/register")}
               className="text-[#00353D] font-medium hover:underline"
             >
               회원가입

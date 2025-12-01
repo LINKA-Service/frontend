@@ -4,7 +4,6 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import useAuthStore from "../../store/useAuthStore";
-import Link from "next/link";
 
 export default function Header() {
   const router = useRouter();
@@ -14,15 +13,13 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md border-b border-[#fafafa]/10">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-3">
-          <Link href="/">
-            <Image
-              src="/logo/logo-w.svg"
-              alt="LINKA Logo"
-              width={120}
-              height={120}
-              className="shadow-lg"
-            />
-          </Link>
+          <Image
+            src="/logo/logo-w.svg"
+            alt="LINKA Logo"
+            width={120}
+            height={120}
+            className="shadow-lg"
+          />
         </div>
 
         <div className="flex items-center gap-3">
@@ -50,7 +47,7 @@ export default function Header() {
                 로그인
               </button>
               <button
-                onClick={() => router.push("/signup")}
+                onClick={() => router.push("/register")}
                 className="px-6 py-2.5 bg-[#fafafa] text-teal-900 rounded-full font-semibold hover:shadow-xl hover:scale-105"
               >
                 회원가입

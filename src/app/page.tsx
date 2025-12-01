@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
+
 import {
   ArrowRight,
   Heart,
@@ -20,12 +22,41 @@ export default function MainPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const { user, fetchUser, accessToken } = useAuthStore();
 
-  // 컴포넌트 마운트 시 사용자 정보 가져옴
+  const learnMoreRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (accessToken && !user) {
       fetchUser();
     }
   }, [accessToken, user, fetchUser]);
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+  });
+
+  const handleRegisterClick = () => {
+    if (!user) {
+      Toast.fire({
+        iconColor: "#fff",
+        title: "회원가입 또는 로그인 후에 이용해주세요!",
+        color: "#fff",
+        background: "#E74B3C",
+        position: "top-end",
+      });
+      return;
+    }
+    router.push("/register");
+  };
+
+  const handleLearnMoreClick = () => {
+    if (learnMoreRef.current) {
+      learnMoreRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div
@@ -62,12 +93,20 @@ export default function MainPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="group w-full sm:w-auto px-10 py-4 bg-[#fafafa] text-teal-900 rounded-full font-bold text-lg hover:bg-teal-50 transition-all flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl hover:scale-105">
+            <button
+              onClick={handleRegisterClick}
+              className="group w-full sm:w-auto px-10 py-4 bg-[#fafafa] text-teal-900 rounded-full font-bold text-lg hover:bg-teal-50 transition-all flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl"
+            >
               피해 등록하기
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
 
-            <button className="w-full sm:w-auto px-10 py-4 border-2 border-[#fafafa]/80 text-[#fafafa] rounded-full font-bold text-lg hover:bg-[#fafafa]/10 transition-all backdrop-blur-sm shadow-lg hover:shadow-xl hover:scale-105">
+            <button
+              onClick={() =>
+                learnMoreRef.current?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="w-full sm:w-auto px-10 py-4 border-2 border-[#fafafa]/80 text-[#fafafa] rounded-full font-bold text-lg hover:bg-[#fafafa]/10 transition-all backdrop-blur-sm shadow-lg hover:shadow-xl"
+            >
               더 알아보기
             </button>
           </div>
@@ -75,7 +114,7 @@ export default function MainPage() {
       </section>
       <div className="h-15"></div>
 
-      <section className="py-20 px-6">
+      <section className="py-20 px-6" ref={learnMoreRef}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-[#fafafa] text-4xl font-bold mb-4">
@@ -408,7 +447,7 @@ export default function MainPage() {
           <h2 className="text-[#fafafa] text-3xl font-bold mb-6">
             마지막으로, 약속드립니다.
           </h2>
-          <p className="text-teal-100 text-xl leading-relaxed italic">
+          <p className="text-[#fafafa] text-xl font-semibold leading-relaxed italic">
             &ldquo;당신만의 권리를 되찾고, 당신의 소중한 일상이
             <br />
             다시 돌아올 때까지 동행하겠습니다.&rdquo;

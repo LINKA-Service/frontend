@@ -1,10 +1,38 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import Swal from "sweetalert2";
+import useAuthStore from "@/store/useAuthStore";
 
 export default function Footer() {
+  const { user } = useAuthStore();
+  const router = useRouter();
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+  });
+
+  const handleCaseRegisterClick = (e: React.MouseEvent) => {
+    e.preventDefault(); // 버튼은 사실 필요 없지만, 안전하게 추가 가능
+    if (!user) {
+      Toast.fire({
+        iconColor: "#fff",
+        title: "회원가입 또는 로그인 후에 이용해주세요!",
+        color: "#fff",
+        background: "#E74B3C",
+        position: "top-end",
+      });
+      return;
+    }
+    router.push("/register");
+  };
+
   return (
     <footer className="border-t border-[#fafafa]/10 bg-[#001b23] backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-6 py-16">
@@ -42,12 +70,12 @@ export default function Footer() {
                 >
                   자주 묻는 질문
                 </a>
-                <a
-                  href="#"
+                <button
+                  onClick={handleCaseRegisterClick}
                   className="block hover:text-[#fafafa] transition-colors"
                 >
-                  피해 사례 등록하기
-                </a>
+                  피해 등록하기
+                </button>
               </div>
             </div>
 
