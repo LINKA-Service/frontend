@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
 import useAuthStore from "../../store/useAuthStore";
 
@@ -47,7 +48,7 @@ export default function Header() {
                 로그인
               </button>
               <button
-                onClick={() => router.push("/register")}
+                onClick={() => router.push("/signup")}
                 className="px-6 py-2.5 bg-[#fafafa] text-teal-900 rounded-full font-semibold hover:shadow-xl hover:scale-105"
               >
                 회원가입

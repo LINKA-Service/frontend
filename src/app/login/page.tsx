@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import useAuthStore from "../../store/useAuthStore";
 
@@ -79,12 +80,14 @@ export default function LoginPage() {
         <div className="bg-[#FAFAF0] rounded-3xl shadow-2xl p-8 flex flex-col items-center">
           <div className="flex flex-col items-center mb-8">
             <div className="flex items-center gap-3 mb-4">
-              <Image
-                src="/logo/logo-g.svg"
-                alt="LINKA Logo"
-                width={180}
-                height={10}
-              />
+              <Link href="/">
+                <Image
+                  src="/logo/logo-g.svg"
+                  alt="LINKA Logo"
+                  width={180}
+                  height={180}
+                />
+              </Link>
             </div>
             <h1 className="text-2xl font-bold text-[#00353D]">로그인</h1>
           </div>
@@ -153,7 +156,7 @@ export default function LoginPage() {
               비밀번호 찾기
             </button>
             <button
-              onClick={() => router.push("/register")}
+              onClick={() => router.push("/signup")}
               className="text-[#00353D] font-medium hover:underline"
             >
               회원가입
