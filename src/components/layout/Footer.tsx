@@ -18,6 +18,10 @@ export default function Footer() {
     timerProgressBar: true,
   });
 
+  const handleFaqClick = () => {
+    router.push("/#faq-section");
+  };
+
   const handleCaseRegisterClick = (e: React.MouseEvent) => {
     e.preventDefault(); // 버튼은 사실 필요 없지만, 안전하게 추가 가능
     if (!user) {
@@ -65,11 +69,12 @@ export default function Footer() {
                   공지사항
                 </a>
                 <a
-                  href="#"
-                  className="block hover:text-[#fafafa] transition-colors"
+                  onClick={handleFaqClick}
+                  className="block hover:text-[#fafafa] transition-colors cursor-pointer"
                 >
                   자주 묻는 질문
                 </a>
+
                 <button
                   onClick={handleCaseRegisterClick}
                   className="block hover:text-[#fafafa] transition-colors"

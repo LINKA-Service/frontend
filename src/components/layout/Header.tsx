@@ -29,15 +29,17 @@ export default function Header() {
         </div>
         <div className="flex items-center gap-3">
           {!mounted ? (
-            // 서버 렌더링 시 또는 hydration 전에 보여줄 UI (깜빡임 방지)
             <div className="w-[200px] h-[42px]" />
           ) : user ? (
             <>
               {/* 로그인 후 사용자명 */}
-              <button className="px-5 py-2 text-[#fafafa]/90 hover:text-[#fafafa] transition-colors font-medium">
+              <button
+                onClick={() => router.push("/mypage")}
+                className="px-5 py-2 text-[#fafafa]/90 hover:text-[#fafafa] transition-colors font-medium"
+              >
                 {user.display_name} 님
               </button>
-              {/* 로그아웃 버튼 */}
+
               <button
                 onClick={logout}
                 className="px-6 py-2.5 bg-[#fafafa] text-teal-900 rounded-full font-semibold hover:bg-teal-50 transition-all shadow-lg hover:shadow-xl hover:scale-105"

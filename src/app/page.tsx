@@ -126,47 +126,47 @@ export default function MainPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <div className="bg-[#fafafa] rounded-3xl p-8 hover:scale-[1.02] transition-all shadow-2xl flex flex-col h-full">
+            <div className="bg-[#fafafa] rounded-3xl p-8 transition-all shadow-2xl flex flex-col h-full">
               <div className="flex items-center gap-4 mb-5">
                 <FileText className="w-8 h-8 text-[#00252A]" />
                 <h3 className="text-[#00252A] text-2xl font-bold">
                   피해 등록 & AI 자동 분석
                 </h3>
               </div>
-              <p className="text-[#00252A]/80 leading-relaxed mb-6">
+              <p className="text-[#00252A] leading-relaxed mb-6">
                 피해 내용을 자유롭게 작성하면 AI가 자동으로 분석하고, 부족한
                 정보를 질문으로 보완합니다. 사기 유형, 가해자 정보, 증거 자료를
                 체계적으로 정리할 수 있습니다.
               </p>
               <div className="bg-[#fafafa] rounded-xl p-4 space-y-2 mt-2">
-                <div className="flex items-center gap-2 text-sm text-[#00252A]/70">
+                <div className="flex items-center gap-2 text-sm text-[#00252A]">
                   <div className="w-1.5 h-1.5 bg-[#00252A] rounded-full"></div>
                   <span>구조화된 폼으로 간편한 정보 입력</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-[#00252A]/70">
+                <div className="flex items-center gap-2 text-sm text-[#00252A]">
                   <div className="w-1.5 h-1.5 bg-[#00252A] rounded-full"></div>
                   <span>AI가 진술 분석 후 추가 질문 생성</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-[#00252A]/70">
+                <div className="flex items-center gap-2 text-sm text-[#00252A]">
                   <div className="w-1.5 h-1.5 bg-[#00252A] rounded-full"></div>
                   <span>증거 자료 자동 분류 및 저장</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-[#fafafa] rounded-3xl p-8 hover:scale-[1.02] transition-all shadow-2xl flex flex-col h-full">
+            <div className="bg-[#fafafa] rounded-3xl p-8 transition-all shadow-2xl flex flex-col h-full">
               <div className="flex items-center gap-4 mb-5">
                 <Users className="w-8 h-8 text-[#00252A]" />
                 <h3 className="text-[#00252A] text-2xl font-bold">
                   하이브리드 AI 매칭
                 </h3>
               </div>
-              <p className="text-[#00252A]/80 leading-relaxed mb-6">
+              <p className="text-[#00252A] leading-relaxed mb-6">
                 동일 가해자는 물론, 유사한 수법의 사기까지 AI가 자동으로
                 탐지합니다. 계좌번호나 연락처가 다르더라도 패턴 분석으로
                 연결해드립니다.
               </p>
-              <div className="bg-[#fafafa] to-[#00252A]/10 rounded-xl p-4 mt-2">
+              <div className="bg-[#fafafa] to-[#00252A] rounded-xl p-4 mt-2">
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
                     <div className="w-6 h-6 bg-[#00252A] rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -178,7 +178,7 @@ export default function MainPage() {
                       <p className="text-[#00252A] font-semibold text-sm">
                         가해자 식별 정보 매칭
                       </p>
-                      <p className="text-[#00252A]/70 text-xs">
+                      <p className="text-[#00252A] text-xs">
                         계좌번호·전화번호·계정 ID 기반
                       </p>
                     </div>
@@ -193,7 +193,7 @@ export default function MainPage() {
                       <p className="text-[#00252A] font-semibold text-sm">
                         사기 수법 유사도 분석
                       </p>
-                      <p className="text-[#00252A]/70 text-xs">
+                      <p className="text-[#00252A] text-xs">
                         BM25 + 벡터 검색 하이브리드
                       </p>
                     </div>
@@ -208,7 +208,7 @@ export default function MainPage() {
                       <p className="text-[#00252A] font-semibold text-sm">
                         정밀 재랭킹
                       </p>
-                      <p className="text-[#00252A]/70 text-xs">
+                      <p className="text-[#00252A] text-xs">
                         Cross-Encoder로 최종 순위 조정
                       </p>
                     </div>
@@ -217,14 +217,14 @@ export default function MainPage() {
               </div>
             </div>
 
-            <div className="bg-[#fafafa] rounded-3xl p-8 hover:scale-[1.02] transition-all shadow-2xl flex flex-col h-full">
+            <div className="bg-[#fafafa] rounded-3xl p-8 transition-all shadow-2xl flex flex-col h-full">
               <div className="flex items-center gap-4 mb-5">
                 <Heart className="w-8 h-8 text-[#00252A]" fill="currentColor" />
                 <h3 className="text-[#00252A] text-2xl font-bold">
                   피해자 그룹 채팅
                 </h3>
               </div>
-              <p className="text-[#00252A]/80 leading-relaxed mb-6">
+              <p className="text-[#00252A] leading-relaxed mb-6">
                 매칭된 피해자들과 안전하게 소통하며 공동대응을 준비하세요. AI
                 커맨드로 대화 내용을 요약하고, 증거를 정리하며, 타임라인을 자동
                 생성할 수 있습니다.
@@ -232,45 +232,45 @@ export default function MainPage() {
               <div className="space-y-3 mt-2">
                 <div className="bg-[#fafafa]/70 rounded-xl p-3 border-l-4 border-[#00252A]">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[#00252A] font-bold text-xs bg-[#00252A]/10 px-2 py-0.5 rounded">
+                    <span className="text-[#00252A] font-bold text-xs bg-[#00252A]/15 px-2 py-0.5 rounded">
                       /summarize
                     </span>
                   </div>
-                  <p className="text-[#00252A]/70 text-xs">
+                  <p className="text-[#00252A] text-xs">
                     대화 내용을 핵심만 요약
                   </p>
                 </div>
                 <div className="bg-[#fafafa]/70 rounded-xl p-3 border-l-4 border-[#00252A]">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[#00252A] font-bold text-xs bg-[#00252A]/10 px-2 py-0.5 rounded">
+                    <span className="text-[#00252A] font-bold text-xs bg-[#00252A]/15 px-2 py-0.5 rounded">
                       /timeline
                     </span>
                   </div>
-                  <p className="text-[#00252A]/70 text-xs">
+                  <p className="text-[#00252A] text-xs">
                     피해 발생 시간순 자동 정리
                   </p>
                 </div>
                 <div className="bg-[#fafafa]/70 rounded-xl p-3 border-l-4 border-[#00252A]">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[#00252A] font-bold text-xs bg-[#00252A]/10 px-2 py-0.5 rounded">
+                    <span className="text-[#00252A] font-bold text-xs bg-[#00252A]/15 px-2 py-0.5 rounded">
                       /evidence
                     </span>
                   </div>
-                  <p className="text-[#00252A]/70 text-xs">
+                  <p className="text-[#00252A] text-xs">
                     모든 증거 자료를 한눈에
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-[#fafafa] rounded-3xl p-8 hover:scale-[1.02] transition-all shadow-2xl flex flex-col h-full">
+            <div className="bg-[#fafafa] rounded-3xl p-8 transition-all shadow-2xl flex flex-col h-full">
               <div className="flex items-center gap-4 mb-5">
                 <Scale className="w-8 h-8 text-[#00252A]" />
                 <h3 className="text-[#00252A] text-2xl font-bold">
                   RAG 기반 법률 상담
                 </h3>
               </div>
-              <p className="text-[#00252A]/80 leading-relaxed mb-6">
+              <p className="text-[#00252A] leading-relaxed mb-6">
                 국가법령정보센터와 판례 데이터를 기반으로 초기 법률 조언을
                 받아보세요. 변호사 상담 전 기본적인 대응 방향을 파악할 수
                 있습니다.
@@ -283,26 +283,26 @@ export default function MainPage() {
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-start gap-2 text-sm">
-                    <span className="text-[#00252A]/60">①</span>
-                    <span className="text-[#00252A]/80">
+                    <span className="text-[#00252A]">①</span>
+                    <span className="text-[#00252A]">
                       질문 분석 및 핵심 쟁점 파악
                     </span>
                   </div>
                   <div className="flex items-start gap-2 text-sm">
-                    <span className="text-[#00252A]/60">②</span>
-                    <span className="text-[#00252A]/80">
+                    <span className="text-[#00252A]">②</span>
+                    <span className="text-[#00252A]">
                       관련 법령 및 판례 자동 검색
                     </span>
                   </div>
                   <div className="flex items-start gap-2 text-sm">
-                    <span className="text-[#00252A]/60">③</span>
-                    <span className="text-[#00252A]/80">
+                    <span className="text-[#00252A]">③</span>
+                    <span className="text-[#00252A]">
                       근거 기반 법률 조언 생성
                     </span>
                   </div>
                   <div className="flex items-start gap-2 text-sm">
-                    <span className="text-[#00252A]/60">④</span>
-                    <span className="text-[#00252A]/80">
+                    <span className="text-[#00252A]">④</span>
+                    <span className="text-[#00252A]">
                       법령 조항·판례 번호 출처 제공
                     </span>
                   </div>
@@ -395,23 +395,26 @@ export default function MainPage() {
 
       <section className="py-20 px-6">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-[#fafafa] text-4xl font-bold text-center mb-12">
+          <h2
+            id="faq-section"
+            className="text-[#fafafa] text-4xl font-bold text-center mb-12"
+          >
             자주 묻는 질문
           </h2>
 
           <div className="space-y-4">
             {[
               {
-                q: "Q. 어떤정보를 등록해야 하나요?",
-                a: "A. 네! LINKA는 전문 법무법인이 의뢰인을 모집하거나, 권리행사가 가능한지 여부를 AI 분석 및 자문을 기반으로 판단하며, 가입자에 대한 기본적인 상담/자문을 지원합니다.",
+                q: "Q. 익명으로 활동할 수 있나요?",
+                a: "A. 네 LINKA의 모든 활동은 철저하게 익명으로 보장됩니다. 입력하신 개인정보와 피해사실은  암호화되어 AI 분석 및 가해자  매칭 용도로만 안전하게 사용됩니다",
               },
               {
                 q: "Q. 가해자의 모든 정보를 알아야 가능한가요?",
-                a: "A. 아니요, 관련없습니다. 계좌정보, 전화번호, 메신저 ID 등 가능한 정보만 입력하시면 AI가 유사한 수법과 패턴을 분석하여 매칭합니다. 사기 수법 자체가 유사하다면 같은 가해자일 가능성이 높습니다.",
+                a: "A. 아니요, 괜찮습니다. 계좌번호, 전화번호, 메신저 ID 등 알고 있는 정보만 입력하세요. AI가 파편화된 정보를 분석하여 동일범으로 추정되는 사례를 찾아 연결해 드립니다.",
               },
               {
                 q: "Q. 피해자끼리 채팅하면 무엇을 할 수 있나요?",
-                a: "A. 네, 특정 가해자 또는 유사한 수법을 가진 범죄자들의 정보를 취합하여 공동 대응이 가능합니다. 이것이 가능한 이유는 여러 사람이 자신의 피해 내용을 취합하여 패턴을 파악하고, 증거 자료를 모아 보다 효과적으로 법적 대응을 할 수 있기 때문입니다.",
+                a: "A. 특정 가해자 또는 유사한 수법을 가진 범죄자들의 정보를 취합하여 공동 대응이 가능합니다. 이것이 가능한 이유는 여러 사람이 자신의 피해 내용을 취합하여 패턴을 파악하고, 증거 자료를 모아 보다 효과적으로 법적 대응을 할 수 있기 때문입니다.",
               },
             ].map((faq, index) => (
               <div

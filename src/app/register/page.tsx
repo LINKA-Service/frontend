@@ -72,7 +72,7 @@ export default function RegisterPage() {
       console.log("=== API 요청 시작 ===");
       console.log("Request body:", JSON.stringify(requestBody, null, 2));
 
-      const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL_AI}/api/case`;
+      const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL_AI}/api/case/`;
 
       const response = await fetch(apiUrl, {
         method: "POST",

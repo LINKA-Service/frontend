@@ -10,17 +10,21 @@ interface CaseTypeSelectionProps {
 }
 
 const caseTypes = [
-  { id: "voice_phishing", icon: "mdi:package-variant", label: "직거래 사기" },
-  { id: "job_scam", icon: "mdi:briefcase", label: "보험/서류 사기" },
-  { id: "dating_scam", icon: "mdi:account-multiple", label: "방문판매 사기" },
-  { id: "loan_scam", icon: "mdi:shield-alert", label: "사칭/위조 사기" },
-  { id: "rental_scam", icon: "mdi:home-city", label: "전세/월세 사기" },
-  { id: "romance_scam", icon: "mdi:heart", label: "로맨스 스캠" },
+  { id: "delivery", icon: "mdi:package-variant", label: "직거래 사기" },
+  { id: "insurance", icon: "mdi:briefcase", label: "보험/서류 사기" },
+  { id: "door_to_door", icon: "mdi:account-multiple", label: "방문판매 사기" },
+  { id: "appointment", icon: "mdi:shield-alert", label: "사칭/위조 사기" },
+  { id: "rental", icon: "mdi:home-city", label: "전세/월세 사기" },
+  { id: "romance", icon: "mdi:heart", label: "로맨스 스캠" },
   { id: "smishing", icon: "mdi:message-text", label: "스미싱 사기" },
-  { id: "fake_ad", icon: "mdi:bullhorn", label: "허위 광고 사기" },
-  { id: "used_goods", icon: "mdi:repeat", label: "중고거래 사기" },
-  { id: "investment", icon: "mdi:hand-coin", label: "투자 유인 사기" },
-  { id: "game_item", icon: "mdi:cards-playing", label: "계정 도용 사기" },
+  { id: "false_advertising", icon: "mdi:bullhorn", label: "허위 광고 사기" },
+  { id: "secondhand_fraud", icon: "mdi:repeat", label: "중고거래 사기" },
+  { id: "investment_scam", icon: "mdi:hand-coin", label: "투자 유인 사기" },
+  {
+    id: "account_takeover",
+    icon: "mdi:cards-playing",
+    label: "계정 도용 사기",
+  },
   { id: "other", icon: "mdi:account-question", label: "기타" },
 ];
 

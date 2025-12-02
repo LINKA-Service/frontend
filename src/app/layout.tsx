@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "LINKA - 피해자를 위한 AI 매칭 서비스",
   description:
     "AI가 유사한 피해를 입은 사람들을 찾아주고, 함께 모여 적절한 대처를 할 수 있도록 돕습니다.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
