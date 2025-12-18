@@ -1,15 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const getBackendUrl = () => {
-  return process.env.NEXT_PUBLIC_API_BASE_URL_AI;
+  return process.env.NEXT_PUBLIC_API_BASE_URL;
 };
 
-export async function GET(
-  request: NextRequest,
-  context: { params: Promise<{ id: string }> },
-) {
+export async function GET(request: NextRequest) {
   try {
-    const params = await context.params;
     const backendUrl = getBackendUrl();
     if (!backendUrl) {
       return NextResponse.json({ error: "서버 설정 오류" }, { status: 500 });
@@ -24,7 +20,7 @@ export async function GET(
     }
 
     const token = authHeader.substring(7);
-    const apiUrl = `${backendUrl}/api/case/${params.id}`;
+    const apiUrl = `${backendUrl}/api/groups/`;
 
     const backendResponse = await fetch(apiUrl, {
       headers: {
@@ -36,14 +32,14 @@ export async function GET(
 
     if (!backendResponse.ok) {
       return NextResponse.json(
-        { error: data.detail || "케이스를 가져오는데 실패했습니다." },
+        { error: data.detail || "그룹 목록을 가져오는데 실패했습니다." },
         { status: backendResponse.status },
       );
     }
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Error fetching case:", error);
+    console.error("Error fetching groups:", error);
     return NextResponse.json(
       { error: "서버 오류가 발생했습니다." },
       { status: 500 },
@@ -51,12 +47,8 @@ export async function GET(
   }
 }
 
-export async function DELETE(
-  request: NextRequest,
-  context: { params: Promise<{ id: string }> },
-) {
+export async function POST(request: NextRequest) {
   try {
-    const params = await context.params;
     const backendUrl = getBackendUrl();
     if (!backendUrl) {
       return NextResponse.json({ error: "서버 설정 오류" }, { status: 500 });
@@ -71,27 +63,30 @@ export async function DELETE(
     }
 
     const token = authHeader.substring(7);
-    const apiUrl = `${backendUrl}/api/case/${params.id}`;
+    const body = await request.json();
+    const apiUrl = `${backendUrl}/api/groups/`;
 
     const backendResponse = await fetch(apiUrl, {
-      method: "DELETE",
+      method: "POST",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(body),
     });
 
     const data = await backendResponse.json();
 
     if (!backendResponse.ok) {
       return NextResponse.json(
-        { error: data.detail || "케이스 삭제에 실패했습니다." },
+        { error: data.detail || "그룹 생성에 실패했습니다." },
         { status: backendResponse.status },
       );
     }
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Error deleting case:", error);
+    console.error("Error creating group:", error);
     return NextResponse.json(
       { error: "서버 오류가 발생했습니다." },
       { status: 500 },

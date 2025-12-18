@@ -4,22 +4,28 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Header from "@/components/layout/Header";
 import MatchList, { MatchCase } from "@/components/cases/MatchList";
+import useAuthStore from "@/store/useAuthStore";
 
 export default function CaseResultPage() {
   const params = useParams();
   const router = useRouter();
   const caseId = params.id as string;
+  const { accessToken } = useAuthStore();
 
   const [similarCases, setSimilarCases] = useState<MatchCase[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const userName = "정우진";
+  const [userName, setUserName] = useState("사용자");
 
   useEffect(() => {
     const fetchSimilarCases = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`/api/case/${caseId}/similar?limit=3`);
+        const response = await fetch(`/api/cases/${caseId}/matches?limit=3`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch similar cases");
@@ -34,13 +40,12 @@ export default function CaseResultPage() {
       }
     };
 
-    if (caseId) {
+    if (caseId && accessToken) {
       fetchSimilarCases();
     }
-  }, [caseId]);
+  }, [caseId, accessToken]);
 
   const handleJoinGroup = (groupCaseId: number) => {
-    // 그룹 참여 로직 - 채팅 페이지로 이동
     router.push(`/cases/${groupCaseId}/chat`);
   };
 
@@ -73,16 +78,13 @@ export default function CaseResultPage() {
       <Header />
 
       <main className="container mx-auto px-4 py-12 max-w-4xl">
-        {/* 헤더 텍스트 */}
         <h1 className="text-white text-2xl md:text-3xl font-bold text-center mb-12">
           {userName} 님의 피해상황과 유사한 피해 사례{" "}
           <span className="text-white">{totalCases}건</span>이 발견되었습니다!
         </h1>
 
-        {/* 유사 사례 목록 */}
         <MatchList cases={similarCases} onJoinGroup={handleJoinGroup} />
 
-        {/* 다음 단계 안내 */}
         <div className="mt-8 bg-[#d4f4dd] rounded-lg p-6 shadow-lg">
           <div className="flex items-start">
             <svg

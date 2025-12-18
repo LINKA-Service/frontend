@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import CaseTypeSelection from "@/components/register/CaseTypeSelection";
 import ScammerInfoForm from "@/components/register/ScammerInfoForm";
 import StatementEditor from "@/components/register/StatementEditor";
@@ -19,6 +20,7 @@ interface ErrorResponse {
 }
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState<Step>("case-type");
   const [formData, setFormData] = useState({
     caseType: "",
@@ -53,6 +55,7 @@ export default function RegisterPage() {
 
       if (!accessToken) {
         alert("로그인이 필요합니다.");
+        router.push("/login");
         return;
       }
 
@@ -72,9 +75,7 @@ export default function RegisterPage() {
       console.log("=== API 요청 시작 ===");
       console.log("Request body:", JSON.stringify(requestBody, null, 2));
 
-      const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL_AI}/api/case/`;
-
-      const response = await fetch(apiUrl, {
+      const response = await fetch("/api/cases", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,13 +85,12 @@ export default function RegisterPage() {
       });
 
       console.log("Response status:", response.status);
-      console.log("Response ok:", response.ok);
 
       if (response.ok) {
         const responseData = await response.json();
         console.log("Response data:", responseData);
         alert("신고가 성공적으로 등록되었습니다.");
-        window.location.href = "/cases";
+        router.push(`/cases/${responseData.id}`);
       } else {
         let errorData: ErrorResponse;
         try {

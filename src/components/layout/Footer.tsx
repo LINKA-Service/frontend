@@ -106,7 +106,7 @@ export default function Footer() {
               <h4 className="text-[#fafafa] font-bold mb-3">문의</h4>
               <div className="space-y-2 text-[#fafafa]/70 text-sm">
                 <a
-                  href="#"
+                  href="https://github.com/LINKA-Service"
                   className="block hover:text-[#fafafa] transition-colors"
                 >
                   팀 &apos;대 선 린&apos; 소개
@@ -123,8 +123,8 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 border-t border-[#fafafa]/10 text-center text-[#fafafa]/60 text-sm">
-          © {new Date().getFullYear()} LINKA. All rights reserved. Connecting
-          victims with 🫶, empowering justice.
+          © {new Date().getFullYear()} LINKA. All rights reserved. <br />
+          Connecting victims with 🫶, empowering justice.
         </div>
       </div>
     </footer>

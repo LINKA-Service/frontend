@@ -24,7 +24,11 @@ export async function GET(
     }
 
     const token = authHeader.substring(7);
-    const apiUrl = `${backendUrl}/api/case/${params.id}`;
+    const { searchParams } = new URL(request.url);
+    const skip = searchParams.get("skip") || "0";
+    const limit = searchParams.get("limit") || "50";
+
+    const apiUrl = `${backendUrl}/api/consultation/${params.id}/messages?skip=${skip}&limit=${limit}`;
 
     const backendResponse = await fetch(apiUrl, {
       headers: {
@@ -36,14 +40,14 @@ export async function GET(
 
     if (!backendResponse.ok) {
       return NextResponse.json(
-        { error: data.detail || "케이스를 가져오는데 실패했습니다." },
+        { error: data.detail || "메시지를 가져오는데 실패했습니다." },
         { status: backendResponse.status },
       );
     }
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Error fetching case:", error);
+    console.error("Error fetching messages:", error);
     return NextResponse.json(
       { error: "서버 오류가 발생했습니다." },
       { status: 500 },
@@ -51,7 +55,7 @@ export async function GET(
   }
 }
 
-export async function DELETE(
+export async function POST(
   request: NextRequest,
   context: { params: Promise<{ id: string }> },
 ) {
@@ -71,27 +75,30 @@ export async function DELETE(
     }
 
     const token = authHeader.substring(7);
-    const apiUrl = `${backendUrl}/api/case/${params.id}`;
+    const body = await request.json();
+    const apiUrl = `${backendUrl}/api/consultation/${params.id}/messages`;
 
     const backendResponse = await fetch(apiUrl, {
-      method: "DELETE",
+      method: "POST",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(body),
     });
 
     const data = await backendResponse.json();
 
     if (!backendResponse.ok) {
       return NextResponse.json(
-        { error: data.detail || "케이스 삭제에 실패했습니다." },
+        { error: data.detail || "메시지 전송에 실패했습니다." },
         { status: backendResponse.status },
       );
     }
 
-    return NextResponse.json(data);
+    return NextResponse.json(data, { status: 201 });
   } catch (error) {
-    console.error("Error deleting case:", error);
+    console.error("Error sending message:", error);
     return NextResponse.json(
       { error: "서버 오류가 발생했습니다." },
       { status: 500 },

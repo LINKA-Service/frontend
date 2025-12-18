@@ -6,7 +6,6 @@ import LawyerCard from "@/components/lawyer/LawyerCard";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
-// 카테고리 타입
 const categories = [
   "전체",
   "직거래",
@@ -31,23 +30,25 @@ export default function LawyerListPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // 변호사 목록 불러오기
   useEffect(() => {
     const fetchLawyers = async () => {
       try {
         setLoading(true);
-        // 현재는 예시로 여러 ID를 시도해봅니다.
-        const lawyerPromises = Array.from({ length: 10 }, (_, i) =>
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/lawyers/${i + 1}`)
-            .then((res) => (res.ok ? res.json() : null))
-            .catch(() => null),
-        );
 
-        const results = await Promise.all(lawyerPromises);
-        const validLawyers = results.filter((lawyer) => lawyer !== null);
+        const apiUrl =
+          selectedCategory === "전체"
+            ? "/api/lawyers/search"
+            : `/api/lawyers/search?specialization=${encodeURIComponent(selectedCategory)}`;
 
-        setLawyers(validLawyers);
-        setFilteredLawyers(validLawyers);
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+          throw new Error("변호사 목록을 불러오는데 실패했습니다.");
+        }
+
+        const data = await response.json();
+        setLawyers(data);
+        setFilteredLawyers(data);
         setError(null);
       } catch (err) {
         setError("변호사 목록을 불러오는데 실패했습니다.");
@@ -58,22 +59,11 @@ export default function LawyerListPage() {
     };
 
     fetchLawyers();
-  }, []);
+  }, [selectedCategory]);
 
-  // 검색 및 필터링
   useEffect(() => {
     let filtered = lawyers;
 
-    // 카테고리 필터
-    if (selectedCategory !== "전체") {
-      filtered = filtered.filter((lawyer) =>
-        lawyer.specializations?.some(
-          (spec: LawyerValue) => spec.val === selectedCategory,
-        ),
-      );
-    }
-
-    // 검색어 필터
     if (searchQuery.trim()) {
       filtered = filtered.filter(
         (lawyer) =>
@@ -88,7 +78,7 @@ export default function LawyerListPage() {
     }
 
     setFilteredLawyers(filtered);
-  }, [selectedCategory, searchQuery, lawyers]);
+  }, [searchQuery, lawyers]);
 
   return (
     <div className="min-h-screen bg-[#00353D]">
@@ -99,7 +89,6 @@ export default function LawyerListPage() {
           내 사건에 딱 맞는 변호사를 찾아보세요.
         </h1>
 
-        {/* 검색창 */}
         <div className="mb-6">
           <input
             type="text"
@@ -110,7 +99,6 @@ export default function LawyerListPage() {
           />
         </div>
 
-        {/* 카테고리 필터 */}
         <div className="flex flex-wrap gap-2 mb-8">
           {categories.map((category) => (
             <button
@@ -127,7 +115,6 @@ export default function LawyerListPage() {
           ))}
         </div>
 
-        {/* 로딩 상태 */}
         {loading && (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
@@ -135,14 +122,12 @@ export default function LawyerListPage() {
           </div>
         )}
 
-        {/* 에러 상태 */}
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             {error}
           </div>
         )}
 
-        {/* 변호사 목록 */}
         {!loading && !error && (
           <>
             {filteredLawyers.length === 0 ? (
@@ -151,7 +136,7 @@ export default function LawyerListPage() {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {filteredLawyers.map((lawyer) => (
+                {filteredLawyers.map((lawyer: Lawyer) => (
                   <LawyerCard
                     key={lawyer.id}
                     lawyer={lawyer}
@@ -164,6 +149,7 @@ export default function LawyerListPage() {
           </>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

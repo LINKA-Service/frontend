@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,11 +8,6 @@ import useAuthStore from "../../store/useAuthStore";
 export default function Header() {
   const router = useRouter();
   const { user, logout } = useAuthStore();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md border-b border-[#fafafa]/10">
@@ -28,11 +23,8 @@ export default function Header() {
           </Link>
         </div>
         <div className="flex items-center gap-3">
-          {!mounted ? (
-            <div className="w-[200px] h-[42px]" />
-          ) : user ? (
+          {user ? (
             <>
-              {/* 로그인 후 사용자명 */}
               <button
                 onClick={() => router.push("/mypage")}
                 className="px-5 py-2 text-[#fafafa]/90 hover:text-[#fafafa] transition-colors font-medium"
@@ -49,7 +41,6 @@ export default function Header() {
             </>
           ) : (
             <>
-              {/* 로그인 전 */}
               <button
                 onClick={() => router.push("/lawyer")}
                 className="px-5 py-2 text-[#fafafa]/90 hover:text-[#fafafa] transition-colors font-medium"

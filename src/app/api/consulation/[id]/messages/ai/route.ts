@@ -4,7 +4,7 @@ const getBackendUrl = () => {
   return process.env.NEXT_PUBLIC_API_BASE_URL_AI;
 };
 
-export async function GET(
+export async function POST(
   request: NextRequest,
   context: { params: Promise<{ id: string }> },
 ) {
@@ -24,31 +24,30 @@ export async function GET(
     }
 
     const token = authHeader.substring(7);
-
-    // URL에서 limit 쿼리 파라미터 가져오기
-    const { searchParams } = new URL(request.url);
-    const limit = searchParams.get("limit") || "5";
-
-    const apiUrl = `${backendUrl}/api/case/${params.id}/similar?limit=${limit}`;
+    const body = await request.json();
+    const apiUrl = `${backendUrl}/api/consultation/${params.id}/messages/ai`;
 
     const backendResponse = await fetch(apiUrl, {
+      method: "POST",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(body),
     });
 
     const data = await backendResponse.json();
 
     if (!backendResponse.ok) {
       return NextResponse.json(
-        { error: data.detail || "유사 케이스를 가져오는데 실패했습니다." },
+        { error: data.detail || "AI 메시지 전송에 실패했습니다." },
         { status: backendResponse.status },
       );
     }
 
-    return NextResponse.json(data);
+    return NextResponse.json(data, { status: 201 });
   } catch (error) {
-    console.error("Error fetching similar cases:", error);
+    console.error("Error sending AI message:", error);
     return NextResponse.json(
       { error: "서버 오류가 발생했습니다." },
       { status: 500 },
